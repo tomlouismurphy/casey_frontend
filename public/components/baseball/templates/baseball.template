@@ -1,24 +1,12 @@
-<div ngcontroller="MainController">
-	Batters - 2014 Stats
+<div>
+	Batting Order - Kansas City Royals
 	<div ng-repeat="batter in batters">
-		<div style="color: blue;">
-		name: {{batter.name}} <br/>
-		position: {{batter.position}} <br/>
-		plate_appearances: {{batter.plate_appearances}} <br/>
-		at_bats: {{batter.at_bats}} <br/>
-		hits: {{batter.hits}} <br/>
-		walks: {{batter.walks}} <br/>
-		hit_by_pitch: {{batter.hit_by_pitch}} <br/>
-		sacrifice_flies: {{batter.sacrifice_flies}} <br/>
-		sacrifice_hits: {{batter.sacrifice_hits}} <br/>
-		singles: {{batter.singles}} <br/>
-		doubles: {{batter.doubles}} <br/>
-		triples: {{batter.triples}} <br/>
-		home_runs: {{batter.home_runs}} <br/>
+		<div ng-if="batter.position" style="color: blue;">
+		{{$index + 1}}: {{batter.name}} <br/>
 		</div>
 	</div>
 	<br/>
-	Pitchers - 2014 Stats
+	Current Pitcher - San Francisco Giants
 	<div ng-repeat="pitcher in pitchers">
 		<div style="color: orange;">
 		name: {{pitcher.name}} <br/>
