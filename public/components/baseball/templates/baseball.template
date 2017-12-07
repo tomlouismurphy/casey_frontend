@@ -1,21 +1,36 @@
-<div>
-	Batting Order - Kansas City Royals
-	<div ng-repeat="batter in batters">
-		<div ng-if="batter.position" style="color: blue;">
-		{{$index + 1}}: {{batter.name}} <br/>
+<div class="row">
+	<div class="col s6">
+		<div class="royalsLineup">
+			<h4 style="text-align: center;">Batting Order - KCR</h4>
+			<div ng-repeat="batter in batters">
+				<div class="royalPlayer" ng-if="batter.position">
+				{{$index + 1}}: {{batter.name}} <br/>
+				</div>
+			</div>
+			<br/>
 		</div>
 	</div>
-	<br/>
-	Current Pitcher - San Francisco Giants
-	<div ng-repeat="pitcher in pitchers">
-		<div style="color: orange;">
-		name: {{pitcher.name}} <br/>
-		batters_faced: {{pitcher.batters_faced}} <br/>
-		hits_allowed: {{pitcher.hits_allowed}} <br/>
-		walks_allowed: {{pitcher.walks_allowed}} <br/>
-		hit_by_pitches_allowed: {{pitcher.hit_by_pitches_allowed}} <br/>
-		home_runs_allowed: {{pitcher.home_runs_allowed}} <br/>
+	<div class="col s6">
+		<div class="giantsPitcher">
+			<h4 style="text-align: center;">Current Pitcher - SFG</h4>
+			<div ng-repeat="pitcher in pitchers">
+				<div class="giantsOnMound">
+				name: {{pitcher.name}} <br/>
+				batters_faced: {{pitcher.batters_faced}} <br/>
+				hits_allowed: {{pitcher.hits_allowed}} <br/>
+				walks_allowed: {{pitcher.walks_allowed}} <br/>
+				hit_by_pitches_allowed: {{pitcher.hit_by_pitches_allowed}} <br/>
+				home_runs_allowed: {{pitcher.home_runs_allowed}} <br/>
+				</div>
+			</div>
+			<br/>
 		</div>
 	</div>
-	<br/>
+	<div class="col s6">
+		<div class="royalsBench">
+			<div ng-repeat="batter in batters">
+				<div ng-if="!batter.position">{{batter.name}}</div>
+			</div>
+		</div>
+	</div>
 </div>
