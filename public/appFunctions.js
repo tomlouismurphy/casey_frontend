@@ -7,5 +7,5 @@ const hitterPitcherMatchup = (batterOBP, pitcherOBP) => {
 }
 
 const calculatebatterOBP = () => {
-	
+	console.log('test');
 }

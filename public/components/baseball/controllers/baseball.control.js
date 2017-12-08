@@ -11,6 +11,8 @@ app
 		$scope.firstBase = '';
 		$scope.secondBase = '';
 		$scope.thirdBase = '';
+		$scope.currentOBP = 0;
+		$scope.currentHRPer = 0;
 		this.pinchHit = function(event){
 			$scope.pinchHitter = event.target.innerText;
 		}
@@ -40,6 +42,23 @@ app
 			}
 			$scope.pinchHitter = '';
 			$scope.playerSubstituted = '';
+		}
+		this.calculateCurrentStats = function (){
+			const leagueOBP2014 = .314;
+			const pitcherOBP = 0.2784;
+			let batterOBP = 0;
+			let batterHRPer = 0;
+			for (let i = 0; i < $scope.batters.length; i++){
+				if ($scope.batters[i].name === $scope.lineup[0]){
+					batterOBP = ($scope.batters[i].hits + $scope.batters[i].walks + $scope.batters[i].hit_by_pitch)/($scope.batters[i].at_bats + $scope.batters[i].walks + $scope.batters[i].hit_by_pitch + $scope.batters[i].sacrifice_flies);
+					batterHRPer = $scope.batters[i].home_runs / ($scope.batters[i].hits + $scope.batters[i].walks + $scope.batters[i].hit_by_pitch)
+				}
+			}
+			const atBatProb = (batterOBP * pitcherOBP / leagueOBP2014) / 
+								(batterOBP * pitcherOBP / leagueOBP2014 + 
+								(1 - batterOBP) * (1 - pitcherOBP) / (1 - leagueOBP2014));
+			$scope.currentOBP = Math.round(atBatProb * 1000) / 1000;
+			$scope.currentHRPer = Math.round($scope.currentOBP * batterHRPer * 1000) / 10;
 		}
 		Batter.query().$promise.then(function(data) {
 			$scope.batters = data;

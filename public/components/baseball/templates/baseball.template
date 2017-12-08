@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" ng-click="main.calculateCurrentStats()">
 	<div class="col s6">
 		<div class="royalsLineup">
 			<h4 style="text-align: center;">Batting Order</h4>
@@ -46,7 +46,8 @@
 		<button id="replacer" ng-click="main.authorizeReplace()">Substitute</button>
 		<p>Pinch Hitter: <span ng-bind="pinchHitter"></span></p>
 		<p>Player To Be Replaced: <span ng-bind="playerSubstituted"></span></p>
-		<p>Likelihood of SF win: </p>
+		<p>Current Player's OBP: {{currentOBP}} </p>
+		<p>Current Player's HR%: {{currentHRPer}}% </p>
 	</div>
 	<div class="col s8">
 		<p style="font-weight: bold;">San Francisco 3, Kansas City {{royalsScore}}	<button ng-click="main.atBat()" id="instigate" style="float: right;">Play</button></p>
