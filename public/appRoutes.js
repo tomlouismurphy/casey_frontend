@@ -9,7 +9,8 @@ angular
 			.state('baseball', {
 				url: '/',
 				templateUrl: 'public/components/baseball/templates/baseball.template',
-				controller: 'MainController'
+				controller: 'MainController',
+				controllerAs: 'main'
 			})
 	$urlRouterProvider.otherwise('/');
 }])

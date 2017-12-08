@@ -20,7 +20,7 @@ body {
 	border: 5px solid black;
 }
 
-.giantsPitcher {
+.giantsCurrent {
 	margin: 0;
 	background-color: #FD5A1E;
 	padding-top: 10px;
@@ -29,8 +29,17 @@ body {
 	border: 5px solid black;
 }
 
-.giantsOnMound {
+.giantsPitcher {
 	text-align: center;
+}
+
+.giantsBullpen {
+	margin: 0;
+	background-color: #FD5A1E;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	height: 40vh;
+	border: 5px solid black;
 }
 
 .royalPlayer {

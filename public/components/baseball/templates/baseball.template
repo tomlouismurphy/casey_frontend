@@ -4,17 +4,17 @@
 			<h4 style="text-align: center;">Batting Order - KCR</h4>
 			<div ng-repeat="batter in batters">
 				<div class="royalPlayer" ng-if="batter.position">
-				{{$index + 1}}: {{batter.name}} <br/>
+				{{$index + 1}}: <span ng-click="main.addToLineup($event)">{{batter.name}}</span> <br/>
 				</div>
 			</div>
 			<br/>
 		</div>
 	</div>
 	<div class="col s6">
-		<div class="giantsPitcher">
+		<div class="giantsCurrent">
 			<h4 style="text-align: center;">Current Pitcher - SFG</h4>
 			<div ng-repeat="pitcher in pitchers">
-				<div class="giantsOnMound">
+				<div class="giantsPitcher" ng-if="pitcher.name == 'Madison Bumgarner'">
 				name: {{pitcher.name}} <br/>
 				batters_faced: {{pitcher.batters_faced}} <br/>
 				hits_allowed: {{pitcher.hits_allowed}} <br/>
@@ -29,7 +29,14 @@
 	<div class="col s6">
 		<div class="royalsBench">
 			<div ng-repeat="batter in batters">
-				<div ng-if="!batter.position">{{batter.name}}</div>
+				<div class="royalPlayer" ng-if="!batter.position">{{batter.name}}</div>
+			</div>
+		</div>
+	</div>
+	<div class="col s6">
+		<div class="giantsBullpen">
+			<div ng-repeat="pitcher in pitchers">
+				<div class="giantsPitcher" ng-if="pitcher.name != 'Madison Bumgarner'">{{pitcher.name}}</div>
 			</div>
 		</div>
 	</div>
