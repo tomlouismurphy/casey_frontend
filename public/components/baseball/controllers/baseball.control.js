@@ -2,8 +2,15 @@ app
 	.controller('MainController', function($scope, Batter, Pitcher){
 		$scope.lineup = [];
 		$scope.bench = [];
+		$scope.pitchingstaff = [];
 		$scope.pinchHitter = '';
 		$scope.playerSubstituted = '';
+		$scope.activePitcher = 'Madison Bumgarner';
+		$scope.outs = 0;
+		$scope.royalsScore = 2;
+		$scope.firstBase = '';
+		$scope.secondBase = '';
+		$scope.thirdBase = '';
 		this.pinchHit = function(event){
 			$scope.pinchHitter = event.target.innerText;
 		}
@@ -46,5 +53,111 @@ app
 		});
 		Pitcher.query().$promise.then(function(data) {
 			$scope.pitchers = data;
+			for (let i = 0; i < data.length; i++){
+				$scope.pitchingstaff.push(data[i].name);
+			}
 		});
+		this.atBat = function(){
+			if ($scope.outs === 3){
+				return 'game over';
+			}
+			let hit = '';
+			const currentBatter = $scope.lineup[0];
+			console.log(currentBatter);
+			const leagueOBP2014 = .314;
+			const pitcherOBP = 0.2784;
+			let batterOBP = 0;
+			for (let i = 0; i < $scope.batters.length; i++){
+				if ($scope.batters[i].name === $scope.lineup[0]){
+					batterOBP = ($scope.batters[i].hits + $scope.batters[i].walks + $scope.batters[i].hit_by_pitch)/($scope.batters[i].at_bats + $scope.batters[i].walks + $scope.batters[i].hit_by_pitch + $scope.batters[i].sacrifice_flies);
+				}
+			}
+			const atBatProb = (batterOBP * pitcherOBP / leagueOBP2014) / 
+								(batterOBP * pitcherOBP / leagueOBP2014 + 
+								(1 - batterOBP) * (1 - pitcherOBP) / (1 - leagueOBP2014));
+			if (Math.random() > atBatProb){
+				$scope.outs++;
+				$scope.lineup.shift();
+				$scope.lineup.push(currentBatter);
+			} else {
+				for (let i = 0; i < $scope.batters.length; i++){
+					if ($scope.batters[i].name === $scope.lineup[0]){
+						const hitIndicator = Math.random() * ($scope.batters[i].hits + $scope.batters[i].walks + $scope.batters[i].hit_by_pitch + 1);
+						if (hitIndicator < $scope.batters[i].hit_by_pitch && hit === ''){
+							hit = 'HBP';
+						} else if (hitIndicator < $scope.batters[i].hit_by_pitch + $scope.batters[i].walks && hit === ''){
+							hit = 'BB';
+						} else if (hitIndicator < $scope.batters[i].hit_by_pitch + $scope.batters[i].walks + $scope.batters[i].singles && hit === ''){
+							hit = '1B';
+						} else if (hitIndicator < $scope.batters[i].hit_by_pitch + $scope.batters[i].walks + $scope.batters[i].singles + $scope.batters[i].doubles && hit === ''){
+							hit = '2B';
+						} else if (hitIndicator < $scope.batters[i].hit_by_pitch + $scope.batters[i].walks + $scope.batters[i].singles + $scope.batters[i].doubles + $scope.batters[i].triples && hit === ''){
+							hit = '3B';
+						} else {
+							hit = 'HR';
+						}
+						console.log(hit);
+					}
+				}
+				if (hit === 'HR'){
+					$scope.royalsScore++;
+					if ($scope.thirdBase !== ''){
+						$scope.thirdBase = '';
+						$scope.royalsScore++;
+					}
+					if ($scope.secondBase !== ''){
+						$scope.secondBase = '';
+						$scope.royalsScore++;
+					}
+					if ($scope.firstBase !== ''){
+						$scope.firstBase = '';
+						$scope.royalsScore++;
+					}
+				} else if (hit === '3B'){
+					if ($scope.thirdBase !== ''){
+						$scope.thirdBase = currentBatter;
+						$scope.royalsScore++;
+					}
+					if ($scope.secondBase !== ''){
+						$scope.secondBase = '';
+						$scope.royalsScore++;
+					}
+					if ($scope.firstBase !== ''){
+						$scope.firstBase = '';
+						$scope.royalsScore++;
+					}
+					$scope.thirdBase = currentBatter;
+				} else if (hit === '2B'){
+					if ($scope.thirdBase !== ''){
+						$scope.thirdBase = '';
+						$scope.royalsScore++;
+					}
+					if ($scope.secondBase !== ''){
+						$scope.secondBase = currentBatter;
+						$scope.royalsScore++;
+					}
+					if ($scope.firstBase !== ''){
+						$scope.thirdBase = $scope.firstBase;
+						$scope.firstBase = '';
+					}
+					$scope.secondBase = currentBatter;
+				} else {
+					if ($scope.thirdBase !== ''){
+						$scope.thirdBase = '';
+						$scope.royalsScore++;
+					}
+					if ($scope.secondBase !== ''){
+						$scope.thirdBase = $scope.secondBase;
+						$scope.secondBase = '';
+					}
+					if ($scope.firstBase !== ''){
+						$scope.secondBase = $scope.firstBase;
+						$scope.firstBase = currentBatter;
+					}
+					$scope.firstBase = currentBatter;
+				}
+				$scope.lineup.shift();
+				$scope.lineup.push(currentBatter);
+			}
+		}
 })
