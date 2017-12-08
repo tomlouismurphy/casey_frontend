@@ -2,9 +2,9 @@
 	<div class="col s6">
 		<div class="royalsLineup">
 			<h4 style="text-align: center;">Batting Order - KCR</h4>
-			<div ng-repeat="batter in batters">
-				<div class="royalPlayer" ng-if="batter.position">
-				{{$index + 1}}: <span ng-click="main.addToLineup($event)">{{batter.name}}</span> <br/>
+			<div ng-repeat="batter in lineup">
+				<div class="royalPlayer">
+				{{$index + 1}}: <span ng-click="main.pickSubstitute($event)">{{batter}}</span> <br/>
 				</div>
 			</div>
 			<br/>
@@ -28,16 +28,23 @@
 	</div>
 	<div class="col s6">
 		<div class="royalsBench">
-			<div ng-repeat="batter in batters">
-				<div class="royalPlayer" ng-if="!batter.position">{{batter.name}}</div>
+		<h4 style="text-align: center;">KCR Bench</h4>
+			<div ng-repeat="batter in bench">
+				<div class="royalPlayer" ng-click="main.pinchHit($event)">{{batter}}</div>
 			</div>
 		</div>
 	</div>
 	<div class="col s6">
 		<div class="giantsBullpen">
+			<h4 style="text-align: center;">SFG Bullpen</h4>
 			<div ng-repeat="pitcher in pitchers">
 				<div class="giantsPitcher" ng-if="pitcher.name != 'Madison Bumgarner'">{{pitcher.name}}</div>
 			</div>
 		</div>
+	</div>
+	<div class="col s6">
+		<button id="replacer" ng-click="main.authorizeReplace()">Substitute</button>
+		<p>Pinch Hitter: <span ng-bind="pinchHitter"></span></p>
+		<p>Player To Be Replaced: <span ng-bind="playerSubstituted"></span></p>
 	</div>
 </div>
