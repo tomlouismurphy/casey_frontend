@@ -4,7 +4,7 @@
 			<h4 style="text-align: center;">Batting Order</h4>
 			<div ng-repeat="batter in lineup">
 				<div class="royalPlayer">
-				{{$index + 1}}: <span ng-click="main.pickSubstitute($event)">{{batter}}</span> <br/>
+					{{$index + 1}}: <span ng-click="main.pickSubstitute($event)">{{batter}}</span> <br/>
 				</div>
 			</div>
 			<br/>
@@ -15,12 +15,12 @@
 			<h4 style="text-align: center;">Current Pitcher</h4>
 			<div ng-repeat="pitcher in pitchers">
 				<div class="giantsPitcher" ng-if="pitcher.name == 'Madison Bumgarner'">
-				name: {{pitcher.name}} <br/>
-				batters_faced: {{pitcher.batters_faced}} <br/>
-				hits_allowed: {{pitcher.hits_allowed}} <br/>
-				walks_allowed: {{pitcher.walks_allowed}} <br/>
-				hit_by_pitches_allowed: {{pitcher.hit_by_pitches_allowed}} <br/>
-				home_runs_allowed: {{pitcher.home_runs_allowed}} <br/>
+					name: {{pitcher.name}} <br/>
+					batters_faced: {{pitcher.batters_faced}} <br/>
+					hits_allowed: {{pitcher.hits_allowed}} <br/>
+					walks_allowed: {{pitcher.walks_allowed}} <br/>
+					hit_by_pitches_allowed: {{pitcher.hit_by_pitches_allowed}} <br/>
+					home_runs_allowed: {{pitcher.home_runs_allowed}} <br/>
 				</div>
 			</div>
 			<br/>
@@ -30,7 +30,9 @@
 		<div class="royalsBench">
 		<h5 style="text-align: center;">KCR Bench</h5>
 			<div ng-repeat="batter in bench">
-				<div class="royalPlayer" ng-click="main.pinchHit($event)">{{batter}}</div>
+				<div class="royalPlayer" ng-click="main.pinchHit($event)">
+					{{batter}}
+				</div>
 			</div>
 		</div>
 	</div>
@@ -50,7 +52,7 @@
 		<p>Current Player's HR%: {{currentHRPer}}% </p>
 	</div>
 	<div class="col s8">
-		<p style="font-weight: bold;">San Francisco 3, Kansas City {{royalsScore}}	<button ng-click="main.atBat()" id="instigate" style="float: right;">Play</button></p>
+		<p style="font-weight: bold;">San Francisco 3, Kansas City {{royalsScore}}	<button ng-click="main.atBat()" id="instigate" style="float: right;">Play At-Bat</button></p>
 		<p>First Base: {{firstBase}} </p>
 		<p>Second Base: {{secondBase}} </p>
 		<p>Third Base: {{thirdBase}} </p>

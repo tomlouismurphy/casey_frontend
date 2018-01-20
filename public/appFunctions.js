@@ -6,6 +6,6 @@ const hitterPitcherMatchup = (batterOBP, pitcherOBP) => {
 	(1 - batterOBP) * (1 - pitcherOBP) / (1 - leagueOBP2014));
 }
 
-const calculatebatterOBP = () => {
+const grabBatterHomeRuns = () => {
 	console.log('test');
 }
